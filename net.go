@@ -16,6 +16,7 @@ package bwlimit
 
 import (
 	"context"
+	"fmt"
 	"net"
 	"time"
 )
@@ -23,6 +24,7 @@ import (
 // Conn is a net.Conn connection that limits the bandwidth of writes and reads.
 type Conn struct {
 	net.Conn
+	net.TCPConn
 
 	reader *Reader
 	writer *Writer
@@ -38,7 +40,16 @@ func NewConn(conn net.Conn, writeLimitPerSecond, readLimitPerSecond Byte) *Conn 
 		reader: NewReader(conn, readLimitPerSecond),
 		writer: NewWriter(conn, writeLimitPerSecond),
 	}
+	fmt.Print("bwconn......................")k
 	return bwconn
+}
+
+func (c *Conn) CloseRead() error {
+	return c.Conn.Close()
+}
+
+func (c *Conn) CloseWrite() error {
+	return c.Conn.Close()
 }
 
 // Write writes data to the connection.
