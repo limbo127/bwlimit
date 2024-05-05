@@ -40,7 +40,7 @@ func NewConn(conn net.Conn, writeLimitPerSecond, readLimitPerSecond Byte) *Conn 
 		reader: NewReader(conn, readLimitPerSecond),
 		writer: NewWriter(conn, writeLimitPerSecond),
 	}
-	fmt.Print("bwconn......................")k
+	fmt.Print("bwconn......................")
 	return bwconn
 }
 
